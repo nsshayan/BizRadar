@@ -37,7 +37,7 @@ class DashboardView:
         # Create search and filter controls
         self.search_field = ft.TextField(
             label="Search businesses",
-            prefix_icon=ft.icons.SEARCH,
+            prefix_icon=ft.Icons.SEARCH,
             on_change=self.on_search_change,
             width=300
         )
@@ -65,15 +65,15 @@ class DashboardView:
         # Create action buttons
         scan_button = ft.ElevatedButton(
             text="Run Scan",
-            icon=ft.icons.RADAR,
+            icon=ft.Icons.RADAR,
             on_click=self.run_manual_scan,
-            bgcolor=ft.colors.BLUE_600,
-            color=ft.colors.WHITE
+            bgcolor=ft.Colors.BLUE_600,
+            color=ft.Colors.WHITE
         )
-        
+
         export_button = ft.OutlinedButton(
             text="Export Data",
-            icon=ft.icons.DOWNLOAD,
+            icon=ft.Icons.DOWNLOAD,
             on_click=self.export_data
         )
         
@@ -163,10 +163,10 @@ class DashboardView:
         
         # Create cards
         cards = ft.Row([
-            self.create_stat_card("Total Businesses", str(total_businesses), ft.icons.BUSINESS, ft.colors.BLUE_600),
-            self.create_stat_card("Competitors", str(total_competitors), ft.icons.TRENDING_UP, ft.colors.RED_600),
-            self.create_stat_card("Avg Rating", f"{avg_rating:.1f}" if avg_rating else "N/A", ft.icons.STAR, ft.colors.ORANGE_600),
-            self.create_stat_card("New This Week", str(recent_additions), ft.icons.NEW_RELEASES, ft.colors.GREEN_600),
+            self.create_stat_card("Total Businesses", str(total_businesses), ft.Icons.BUSINESS, ft.Colors.BLUE_600),
+            self.create_stat_card("Competitors", str(total_competitors), ft.Icons.TRENDING_UP, ft.Colors.RED_600),
+            self.create_stat_card("Avg Rating", f"{avg_rating:.1f}" if avg_rating else "N/A", ft.Icons.STAR, ft.Colors.ORANGE_600),
+            self.create_stat_card("New This Week", str(recent_additions), ft.Icons.NEW_RELEASES, ft.Colors.GREEN_600),
         ], alignment=ft.MainAxisAlignment.SPACE_AROUND)
         
         return cards
@@ -177,17 +177,17 @@ class DashboardView:
             content=ft.Column([
                 ft.Icon(icon, size=30, color=color),
                 ft.Text(value, size=24, weight=ft.FontWeight.BOLD),
-                ft.Text(title, size=12, color=ft.colors.GREY_600)
+                ft.Text(title, size=12, color=ft.Colors.GREY_600)
             ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=5),
             width=150,
             height=100,
-            bgcolor=ft.colors.WHITE,
+            bgcolor=ft.Colors.WHITE,
             border_radius=10,
             padding=15,
             shadow=ft.BoxShadow(
                 spread_radius=1,
                 blur_radius=5,
-                color=ft.colors.GREY_300,
+                color=ft.Colors.GREY_300,
                 offset=ft.Offset(0, 2)
             )
         )
@@ -197,10 +197,10 @@ class DashboardView:
         if not self.filtered_businesses:
             return ft.Container(
                 content=ft.Column([
-                    ft.Icon(ft.icons.BUSINESS, size=64, color=ft.colors.GREY_400),
-                    ft.Text("No businesses found", size=16, color=ft.colors.GREY_600),
-                    ft.Text("Try adjusting your filters or run a scan to discover businesses", 
-                           size=12, color=ft.colors.GREY_500)
+                    ft.Icon(ft.Icons.BUSINESS, size=64, color=ft.Colors.GREY_400),
+                    ft.Text("No businesses found", size=16, color=ft.Colors.GREY_600),
+                    ft.Text("Try adjusting your filters or run a scan to discover businesses",
+                           size=12, color=ft.Colors.GREY_500)
                 ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
                 height=200,
                 alignment=ft.alignment.center
@@ -224,14 +224,14 @@ class DashboardView:
         """Create a card for displaying business information."""
         # Create rating display
         rating_display = ft.Row([
-            ft.Icon(ft.icons.STAR, size=16, color=ft.colors.ORANGE_600),
+            ft.Icon(ft.Icons.STAR, size=16, color=ft.Colors.ORANGE_600),
             ft.Text(f"{business.rating:.1f}" if business.rating else "N/A", size=14)
-        ], spacing=2) if business.rating else ft.Text("No rating", size=14, color=ft.colors.GREY_500)
+        ], spacing=2) if business.rating else ft.Text("No rating", size=14, color=ft.Colors.GREY_500)
         
         # Create competitor badge
         competitor_badge = ft.Container(
-            content=ft.Text("COMPETITOR", size=10, color=ft.colors.WHITE, weight=ft.FontWeight.BOLD),
-            bgcolor=ft.colors.RED_600,
+            content=ft.Text("COMPETITOR", size=10, color=ft.Colors.WHITE, weight=ft.FontWeight.BOLD),
+            bgcolor=ft.Colors.RED_600,
             padding=ft.padding.symmetric(horizontal=8, vertical=2),
             border_radius=10
         ) if business.is_competitor else None
@@ -248,18 +248,18 @@ class DashboardView:
                     ft.Text(business.name, size=16, weight=ft.FontWeight.BOLD),
                     competitor_badge
                 ] if competitor_badge else [ft.Text(business.name, size=16, weight=ft.FontWeight.BOLD)]),
-                ft.Text(categories_text, size=12, color=ft.colors.GREY_600),
-                ft.Text(business.location.address or "Address not available", size=12, color=ft.colors.GREY_500),
+                ft.Text(categories_text, size=12, color=ft.Colors.GREY_600),
+                ft.Text(business.location.address or "Address not available", size=12, color=ft.Colors.GREY_500),
                 rating_display
             ], expand=True, spacing=5),
             ft.Column([
                 ft.IconButton(
-                    icon=ft.icons.INFO,
+                    icon=ft.Icons.INFO,
                     tooltip="View Details",
                     on_click=lambda e, b=business: self.show_business_details(b)
                 ),
                 ft.IconButton(
-                    icon=ft.icons.EDIT if business.is_competitor else ft.icons.ADD,
+                    icon=ft.Icons.EDIT if business.is_competitor else ft.Icons.ADD,
                     tooltip="Edit" if business.is_competitor else "Mark as Competitor",
                     on_click=lambda e, b=business: self.toggle_competitor_status(b)
                 )
@@ -268,14 +268,14 @@ class DashboardView:
         
         return ft.Container(
             content=card_content,
-            bgcolor=ft.colors.WHITE,
+            bgcolor=ft.Colors.WHITE,
             border_radius=8,
             padding=15,
-            border=ft.border.all(1, ft.colors.GREY_300),
+            border=ft.border.all(1, ft.Colors.GREY_300),
             shadow=ft.BoxShadow(
                 spread_radius=0,
                 blur_radius=2,
-                color=ft.colors.GREY_200,
+                color=ft.Colors.GREY_200,
                 offset=ft.Offset(0, 1)
             )
         )

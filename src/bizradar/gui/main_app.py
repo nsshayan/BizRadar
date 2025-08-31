@@ -74,18 +74,18 @@ class BizRadarApp:
             min_extended_width=200,
             destinations=[
                 ft.NavigationRailDestination(
-                    icon=ft.icons.DASHBOARD,
-                    selected_icon=ft.icons.DASHBOARD,
+                    icon=ft.Icons.DASHBOARD,
+                    selected_icon=ft.Icons.DASHBOARD,
                     label="Dashboard"
                 ),
                 ft.NavigationRailDestination(
-                    icon=ft.icons.NOTIFICATIONS,
-                    selected_icon=ft.icons.NOTIFICATIONS,
+                    icon=ft.Icons.NOTIFICATIONS,
+                    selected_icon=ft.Icons.NOTIFICATIONS,
                     label="Notifications"
                 ),
                 ft.NavigationRailDestination(
-                    icon=ft.icons.SETTINGS,
-                    selected_icon=ft.icons.SETTINGS,
+                    icon=ft.Icons.SETTINGS,
+                    selected_icon=ft.Icons.SETTINGS,
                     label="Settings"
                 ),
             ],
@@ -102,16 +102,16 @@ class BizRadarApp:
         # Create app bar
         app_bar = ft.AppBar(
             title=ft.Text("BizRadar", size=20, weight=ft.FontWeight.BOLD),
-            bgcolor=ft.colors.BLUE_600,
-            color=ft.colors.WHITE,
+            bgcolor=ft.Colors.BLUE_600,
+            color=ft.Colors.WHITE,
             actions=[
                 ft.IconButton(
-                    icon=ft.icons.REFRESH,
+                    icon=ft.Icons.REFRESH,
                     tooltip="Refresh Data",
                     on_click=self.refresh_data
                 ),
                 ft.IconButton(
-                    icon=ft.icons.INFO,
+                    icon=ft.Icons.INFO,
                     tooltip="About",
                     on_click=self.show_about
                 )
@@ -240,7 +240,7 @@ class BizRadarApp:
         """Show a success snack bar."""
         self.page.snack_bar = ft.SnackBar(
             content=ft.Text(message),
-            bgcolor=ft.colors.GREEN_600
+            bgcolor=ft.Colors.GREEN_600
         )
         self.page.snack_bar.open = True
         self.page.update()
@@ -249,7 +249,7 @@ class BizRadarApp:
         """Show an error snack bar."""
         self.page.snack_bar = ft.SnackBar(
             content=ft.Text(message),
-            bgcolor=ft.colors.RED_600
+            bgcolor=ft.Colors.RED_600
         )
         self.page.snack_bar.open = True
         self.page.update()
@@ -258,7 +258,7 @@ class BizRadarApp:
         """Show an info snack bar."""
         self.page.snack_bar = ft.SnackBar(
             content=ft.Text(message),
-            bgcolor=ft.colors.BLUE_600
+            bgcolor=ft.Colors.BLUE_600
         )
         self.page.snack_bar.open = True
         self.page.update()

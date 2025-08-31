@@ -48,8 +48,9 @@ class RateLimiter:
 
 class FoursquareClient:
     """Client for interacting with Foursquare Places API."""
-    
-    BASE_URL = "https://api.foursquare.com/v3/places"
+
+    BASE_URL = "https://places-api.foursquare.com/places"
+    API_VERSION = "2025-06-17"  # Current API version  # Correct URL for fsq3 keys
     
     def __init__(self, api_key: str):
         self.api_key = api_key
@@ -65,14 +66,35 @@ class FoursquareClient:
         if not self.rate_limiter.can_make_request():
             logger.warning("Rate limit reached, waiting...")
             time.sleep(60)  # Wait 1 minute before retrying
-        
+
         try:
             url = f"{self.BASE_URL}/{endpoint}"
+            logger.debug(f"Making request to: {url}")
+            logger.debug(f"Headers: {dict(self.session.headers)}")
+            logger.debug(f"Params: {params}")
+
+            # Add API version parameter
+            if params is None:
+                params = {}
+            params['version'] = self.API_VERSION
+
             response = self.session.get(url, params=params, timeout=30)
             self.rate_limiter.record_request()
-            
+
+            logger.debug(f"Response status: {response.status_code}")
+            logger.debug(f"Response headers: {dict(response.headers)}")
+
             if response.status_code == 200:
                 return response.json()
+            elif response.status_code == 401:
+                logger.error("401 Unauthorized - Check your API key")
+                logger.error(f"API Key preview: {self.api_key[:10]}...{self.api_key[-4:] if len(self.api_key) > 14 else '***'}")
+                logger.error(f"Response: {response.text}")
+                return None
+            elif response.status_code == 403:
+                logger.error("403 Forbidden - API key may not have required permissions")
+                logger.error(f"Response: {response.text}")
+                return None
             elif response.status_code == 429:
                 logger.warning("Rate limited by API, waiting...")
                 time.sleep(60)
@@ -80,7 +102,7 @@ class FoursquareClient:
             else:
                 logger.error(f"API request failed: {response.status_code} - {response.text}")
                 return None
-                
+
         except requests.exceptions.RequestException as e:
             logger.error(f"Request exception: {e}")
             return None

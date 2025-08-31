@@ -54,15 +54,15 @@ class NotificationsView:
         # Create action buttons
         mark_all_read_button = ft.ElevatedButton(
             text="Mark All Read",
-            icon=ft.icons.MARK_EMAIL_READ,
+            icon=ft.Icons.MARK_EMAIL_READ,
             on_click=self.mark_all_read,
-            bgcolor=ft.colors.BLUE_600,
-            color=ft.colors.WHITE
+            bgcolor=ft.Colors.BLUE_600,
+            color=ft.Colors.WHITE
         )
-        
+
         clear_old_button = ft.OutlinedButton(
             text="Clear Old",
-            icon=ft.icons.DELETE_SWEEP,
+            icon=ft.Icons.DELETE_SWEEP,
             on_click=self.clear_old_notifications
         )
         
@@ -128,9 +128,9 @@ class NotificationsView:
                           n.created_at.date() == datetime.now().date()])
         
         stats = ft.Row([
-            self.create_stat_item("Total", str(total_count), ft.icons.NOTIFICATIONS, ft.colors.BLUE_600),
-            self.create_stat_item("Unread", str(unread_count), ft.icons.MARK_EMAIL_UNREAD, ft.colors.RED_600),
-            self.create_stat_item("Today", str(today_count), ft.icons.TODAY, ft.colors.GREEN_600),
+            self.create_stat_item("Total", str(total_count), ft.Icons.NOTIFICATIONS, ft.Colors.BLUE_600),
+            self.create_stat_item("Unread", str(unread_count), ft.Icons.MARK_EMAIL_UNREAD, ft.Colors.RED_600),
+            self.create_stat_item("Today", str(today_count), ft.Icons.TODAY, ft.Colors.GREEN_600),
         ], alignment=ft.MainAxisAlignment.SPACE_AROUND)
         
         return stats
@@ -142,13 +142,13 @@ class NotificationsView:
                 ft.Icon(icon, size=20, color=color),
                 ft.Column([
                     ft.Text(value, size=18, weight=ft.FontWeight.BOLD),
-                    ft.Text(label, size=12, color=ft.colors.GREY_600)
+                    ft.Text(label, size=12, color=ft.Colors.GREY_600)
                 ], spacing=2)
             ], spacing=10),
             padding=10,
-            bgcolor=ft.colors.WHITE,
+            bgcolor=ft.Colors.WHITE,
             border_radius=8,
-            border=ft.border.all(1, ft.colors.GREY_300)
+            border=ft.border.all(1, ft.Colors.GREY_300)
         )
     
     def create_notifications_list(self) -> ft.Container:
@@ -159,10 +159,10 @@ class NotificationsView:
         if not self.filtered_notifications:
             return ft.Container(
                 content=ft.Column([
-                    ft.Icon(ft.icons.NOTIFICATIONS_NONE, size=64, color=ft.colors.GREY_400),
-                    ft.Text("No notifications found", size=16, color=ft.colors.GREY_600),
-                    ft.Text("Notifications will appear here when businesses are detected", 
-                           size=12, color=ft.colors.GREY_500)
+                    ft.Icon(ft.Icons.NOTIFICATIONS_NONE, size=64, color=ft.Colors.GREY_400),
+                    ft.Text("No notifications found", size=16, color=ft.Colors.GREY_600),
+                    ft.Text("Notifications will appear here when businesses are detected",
+                           size=12, color=ft.Colors.GREY_500)
                 ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
                 height=200,
                 alignment=ft.alignment.center
@@ -194,7 +194,7 @@ class NotificationsView:
         read_indicator = ft.Container(
             width=8,
             height=8,
-            bgcolor=ft.colors.GREY_400 if notification.read else ft.colors.BLUE_600,
+            bgcolor=ft.Colors.GREY_400 if notification.read else ft.Colors.BLUE_600,
             border_radius=4
         )
         
@@ -204,17 +204,17 @@ class NotificationsView:
             ft.Icon(type_info["icon"], size=24, color=type_info["color"]),
             ft.Column([
                 ft.Text(notification.title, size=14, weight=ft.FontWeight.BOLD),
-                ft.Text(notification.message, size=12, color=ft.colors.GREY_700),
-                ft.Text(time_ago, size=10, color=ft.colors.GREY_500)
+                ft.Text(notification.message, size=12, color=ft.Colors.GREY_700),
+                ft.Text(time_ago, size=10, color=ft.Colors.GREY_500)
             ], expand=True, spacing=2),
             ft.Column([
                 ft.IconButton(
-                    icon=ft.icons.MARK_EMAIL_READ if not notification.read else ft.icons.MARK_EMAIL_UNREAD,
+                    icon=ft.Icons.MARK_EMAIL_READ if not notification.read else ft.Icons.MARK_EMAIL_UNREAD,
                     tooltip="Mark as read" if not notification.read else "Mark as unread",
                     on_click=lambda e, n=notification: self.toggle_read_status(n)
                 ),
                 ft.IconButton(
-                    icon=ft.icons.DELETE,
+                    icon=ft.Icons.DELETE,
                     tooltip="Dismiss",
                     on_click=lambda e, n=notification: self.dismiss_notification(n)
                 )
@@ -222,8 +222,8 @@ class NotificationsView:
         ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, spacing=10)
         
         # Card styling based on read status
-        bgcolor = ft.colors.WHITE if notification.read else ft.colors.BLUE_50
-        border_color = ft.colors.GREY_300 if notification.read else ft.colors.BLUE_300
+        bgcolor = ft.Colors.WHITE if notification.read else ft.Colors.BLUE_50
+        border_color = ft.Colors.GREY_300 if notification.read else ft.Colors.BLUE_300
         
         return ft.Container(
             content=card_content,
@@ -234,7 +234,7 @@ class NotificationsView:
             shadow=ft.BoxShadow(
                 spread_radius=0,
                 blur_radius=2,
-                color=ft.colors.GREY_200,
+                color=ft.Colors.GREY_200,
                 offset=ft.Offset(0, 1)
             )
         )
@@ -242,13 +242,13 @@ class NotificationsView:
     def get_notification_type_info(self, notification_type: NotificationType) -> dict:
         """Get icon and color for notification type."""
         type_map = {
-            NotificationType.NEW_BUSINESS: {"icon": ft.icons.BUSINESS, "color": ft.colors.GREEN_600},
-            NotificationType.BUSINESS_UPDATED: {"icon": ft.icons.UPDATE, "color": ft.colors.BLUE_600},
-            NotificationType.TRENDING_ACTIVITY: {"icon": ft.icons.TRENDING_UP, "color": ft.colors.ORANGE_600},
-            NotificationType.RATING_CHANGE: {"icon": ft.icons.STAR, "color": ft.colors.PURPLE_600},
-            NotificationType.COMPETITOR_ALERT: {"icon": ft.icons.WARNING, "color": ft.colors.RED_600}
+            NotificationType.NEW_BUSINESS: {"icon": ft.Icons.BUSINESS, "color": ft.Colors.GREEN_600},
+            NotificationType.BUSINESS_UPDATED: {"icon": ft.Icons.UPDATE, "color": ft.Colors.BLUE_600},
+            NotificationType.TRENDING_ACTIVITY: {"icon": ft.Icons.TRENDING_UP, "color": ft.Colors.ORANGE_600},
+            NotificationType.RATING_CHANGE: {"icon": ft.Icons.STAR, "color": ft.Colors.PURPLE_600},
+            NotificationType.COMPETITOR_ALERT: {"icon": ft.Icons.WARNING, "color": ft.Colors.RED_600}
         }
-        return type_map.get(notification_type, {"icon": ft.icons.NOTIFICATIONS, "color": ft.colors.GREY_600})
+        return type_map.get(notification_type, {"icon": ft.Icons.NOTIFICATIONS, "color": ft.Colors.GREY_600})
     
     def get_time_ago(self, timestamp: datetime) -> str:
         """Get human-readable time ago string."""

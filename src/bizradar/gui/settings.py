@@ -51,19 +51,19 @@ class SettingsView:
         action_buttons = ft.Row([
             ft.ElevatedButton(
                 text="Save Settings",
-                icon=ft.icons.SAVE,
+                icon=ft.Icons.SAVE,
                 on_click=self.save_settings,
-                bgcolor=ft.colors.BLUE_600,
-                color=ft.colors.WHITE
+                bgcolor=ft.Colors.BLUE_600,
+                color=ft.Colors.WHITE
             ),
             ft.OutlinedButton(
                 text="Reset to Defaults",
-                icon=ft.icons.RESTORE,
+                icon=ft.Icons.RESTORE,
                 on_click=self.reset_settings
             ),
             ft.OutlinedButton(
                 text="Test Connection",
-                icon=ft.icons.WIFI,
+                icon=ft.Icons.WIFI,
                 on_click=self.test_api_connection
             )
         ], spacing=10)
@@ -109,7 +109,7 @@ class SettingsView:
         api_help = ft.Text(
             "Get your API key from https://developer.foursquare.com/",
             size=12,
-            color=ft.colors.GREY_600
+            color=ft.Colors.GREY_600
         )
         
         return ft.Container(
@@ -119,7 +119,7 @@ class SettingsView:
                 api_help
             ], spacing=10),
             padding=15,
-            bgcolor=ft.colors.GREY_50,
+            bgcolor=ft.Colors.GREY_50,
             border_radius=8
         )
     
@@ -149,7 +149,7 @@ class SettingsView:
         location_help = ft.Text(
             "You can get coordinates from Google Maps by right-clicking on your location",
             size=12,
-            color=ft.colors.GREY_600
+            color=ft.Colors.GREY_600
         )
         
         return ft.Container(
@@ -160,7 +160,7 @@ class SettingsView:
                 location_help
             ], spacing=10),
             padding=15,
-            bgcolor=ft.colors.GREY_50,
+            bgcolor=ft.Colors.GREY_50,
             border_radius=8
         )
     
@@ -243,7 +243,7 @@ class SettingsView:
                 ])
             ], spacing=15),
             padding=15,
-            bgcolor=ft.colors.GREY_50,
+            bgcolor=ft.Colors.GREY_50,
             border_radius=8
         )
     
@@ -272,7 +272,7 @@ class SettingsView:
                 self.notify_trending_checkbox
             ], spacing=10),
             padding=15,
-            bgcolor=ft.colors.GREY_50,
+            bgcolor=ft.Colors.GREY_50,
             border_radius=8
         )
     
