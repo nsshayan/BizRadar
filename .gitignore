@@ -1,0 +1,6 @@
+src/bizradar/__pycache__/
+src/bizradar/api/__pycache__/
+src/bizradar/models/__pycache__/
+src/bizradar/services/__pycache__/
+src/bizradar/gui/__pycache__/
+src/bizradar/utils/__pycache__/
