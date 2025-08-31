@@ -30,7 +30,7 @@ class PlaceData:
 class RateLimiter:
     """Simple rate limiter for API requests."""
     
-    def __init__(self, max_requests: int = 50, time_window: int = 3600):
+    def __init__(self, max_requests: int = 5, time_window: int = 3600):
         self.max_requests = max_requests
         self.time_window = time_window
         self.requests = []
@@ -58,7 +58,8 @@ class FoursquareClient:
         self.session = requests.Session()
         self.session.headers.update({
             'Authorization': f'Bearer {api_key}',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'X-Places-Api-Version': self.API_VERSION
         })
     
     def _make_request(self, endpoint: str, params: Dict = None) -> Optional[Dict]:
@@ -72,11 +73,6 @@ class FoursquareClient:
             logger.debug(f"Making request to: {url}")
             logger.debug(f"Headers: {dict(self.session.headers)}")
             logger.debug(f"Params: {params}")
-
-            # Add API version parameter
-            if params is None:
-                params = {}
-            params['version'] = self.API_VERSION
 
             response = self.session.get(url, params=params, timeout=30)
             self.rate_limiter.record_request()
