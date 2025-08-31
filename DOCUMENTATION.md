@@ -122,11 +122,6 @@ BizRadar integrates with the Foursquare Places API to:
 - Monitor business changes over time
 - Respect API rate limits and handle errors gracefully
 
-### Rate Limiting
-- Built-in rate limiting to respect API quotas
-- Automatic retry logic for temporary failures
-- Graceful degradation when limits are reached
-
 ## Data Management
 
 ### Database Schema
@@ -214,34 +209,6 @@ python -m unittest tests.test_database
 
 ### Logging
 Check the `logs/` directory for detailed error information and debugging data.
-
-## Contributing
-
-### Development Setup
-1. Fork the repository
-2. Install development dependencies
-3. Run tests to ensure everything works
-4. Make your changes
-5. Add tests for new functionality
-6. Submit a pull request
-
-### Code Style
-- Follow PEP 8 Python style guidelines
-- Add docstrings to all functions and classes
-- Include type hints where appropriate
-- Write comprehensive tests for new features
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Support
-
-For support and questions:
-1. Check this documentation
-2. Review the troubleshooting section
-3. Check the logs directory for error details
-4. Run the test suite to identify issues
 
 ## Version History
 

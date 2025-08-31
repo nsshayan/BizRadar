@@ -49,7 +49,3 @@ BizRadar helps business owners track their local competitive landscape in real-t
 1. Visit [Foursquare Developer Portal](https://developer.foursquare.com/)
 2. Create a new app and get your API key
 3. Add the API key to your `.env` file
-
-## License
-
-MIT License
